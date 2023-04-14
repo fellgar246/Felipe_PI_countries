@@ -8,7 +8,7 @@ const getApiData = async () => {
             return {
                 id: country.cca3 ,
                 name: country.name.common ,
-                imageFlag: country.flags[0],
+                image: country.flags[0],
                 continent: country.continents ,
                 capital: country.capital ? country.capital: "Not specified",
                 subregion: country.subregion ? country.subregion:  "Not specified",

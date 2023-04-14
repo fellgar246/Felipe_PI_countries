@@ -1,9 +1,10 @@
 const { Activity } = require("../db.js");
 
-const addActivity = async(activity) => {
-    //TODO: Relacionar Actividades con paises
-    const newActivity = await Activity.create(activity)
-    return newActivity;
+const newActivity = async({ name, difficulty, duration, season, country }) => {
+    
+    const activity = await Activity.create({ name, difficulty, duration, season })
+    activity.addCountry(country)
+    return activity;
 }
 
 const findAllActivities = async() => {
@@ -11,7 +12,14 @@ const findAllActivities = async() => {
     return allActivities
 }
 
+const findActivity = async(country) => {
+    const activitiesFound = await Activity.findAll({where: {name: country }})
+    return activitiesFound
+}
+
+
 module.exports = {
-    addActivity,
-    findAllActivities
+    newActivity,
+    findAllActivities,
+    findActivity
 }

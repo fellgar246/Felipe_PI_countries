@@ -1,10 +1,10 @@
-const { addActivity, findAllActivities } = require('../controllers/activityController')
+const { newActivity, findAllActivities } = require('../controllers/activityController')
 
 const  addActivityRouter = async(req,res) => {
     try {
-        const { name, difficulty, duration, season } = req.body;
-        const newActivity = await addActivity({ name, difficulty, duration, season });
-        res.status(201).json(newActivity);
+        const { name, difficulty, duration, season, country } = req.body;
+        const addActivity = await newActivity({ name, difficulty, duration, season, country });
+        res.status(201).json(addActivity);
     } catch (error) {
         res.status(400).json({msg: error.message});
     }
@@ -22,5 +22,5 @@ const allActivities = async (req, res) => {
 
 module.exports = {
     addActivityRouter,
-    allActivities
+    allActivities,
 }

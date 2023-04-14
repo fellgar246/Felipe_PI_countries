@@ -22,7 +22,6 @@ module.exports = (sequelize) => {
         }
     },
     duration: {
-        //TODO: Poner en horas
         type: DataTypes.INTEGER,
         allowNull: false,
     },

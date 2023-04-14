@@ -1,4 +1,5 @@
-const { Country } = require("../db.js");
+const { Country, Activity } = require("../db.js");
+const { Op } = require("sequelize");
 
 const findAllCountries = async() => {
     const allCountries = await Country.findAll();
@@ -6,14 +7,19 @@ const findAllCountries = async() => {
 }
 
 const countryById = async(idPais) => {
-    //TODO: Revisar si se agrega ToLowerCase
-    const country = await Country.findByPk(idPais)
+    const id = idPais.toUpperCase()
+    const country = await Country.findByPk(id,{include: Activity} )
     if(!country) throw Error("País no encontrado por Id")
     return country 
 }
 
 const countryByName = async(name) => {
-    const country = await Country.findOne({where: {name: name }});
+    const country = await Country.findAll({
+        where: {
+            name: {[Op.iLike]: '%'+name+'%' },
+        },
+        include: Activity
+    });
     if(!country) throw Error("País no encontrado por nombre")
     return country 
 }

@@ -1,4 +1,5 @@
 const { findAllCountries, countryById, countryByName } = require('../controllers/countryController');
+const { findActivity } = require('../controllers/activityController')
 
 const allCountriesRouter = async(req, res) => {
     try {
@@ -21,14 +22,11 @@ const countryByIdRouter =  async(req, res) => {
 }
 
 const countryByNameRouter = async(req, res) => {
-    
     try {
         let name = ""
         const urlParams = new URLSearchParams(req.url);
         for (const value of urlParams.values()) {
-            name = value.charAt(0)
-                        .toUpperCase()
-                        .concat(value.substring(1, value.length));
+            name = value
         }
         const country = await countryByName(name);
         res.status(200).json(country)

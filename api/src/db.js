@@ -34,7 +34,6 @@ const { Country, Activity } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-//TODO: Revisar si vale la pena una tabla intermedia o usar hasMany
 Country.belongsToMany(Activity, {through: "CountryActivity"});
 Activity.belongsToMany(Country, {through: "CountryActivity"});
 

@@ -8,7 +8,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       primaryKey: true,
       validate: {
-        //TODO: verificar LEN
         len: [1,3]
       }
     },
@@ -16,12 +15,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    imageFlag: {
+    image: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     continent: {
-      //TODO Revisar si es Enum
       type: DataTypes.STRING,
       allowNull: false,
     }, 
