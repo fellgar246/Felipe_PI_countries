@@ -1,4 +1,4 @@
-import { Landing, Home, Form, Detail } from "./pages";
+import { Landing, Home, FormPage, Detail } from "./pages";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
             <Home />
           </Route>
           <Route path='/Form'>
-            <Form />
+            <FormPage />
           </Route>
           <Route path="/detail/:idPais">
             <Detail />

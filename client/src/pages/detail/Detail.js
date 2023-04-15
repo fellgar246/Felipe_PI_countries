@@ -10,26 +10,23 @@ const Detail = () => {
     fetch(`http://localhost:3001/countries/${idPais}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
       setCountry(data)
     })
   }, [idPais]);
 
 
-  // <img src={element.country.imageFlag} alt={element.country.name} />
-  // <h3>id:{element.country.id}</h3>
-  // <h3>Continent:{element.country.continent}</h3>
-  // <h3>Subregion:{element.country.subregion}</h3>
-  // <h3>Area: {element.country.area}</h3>
-  // <h3>Population: {element.country.pupulation}</h3>
-
-
   return (
     <>
- 
       <h2>Country Name</h2>
       <h2>{country.name}</h2>
-    
+      <img src={country.imageFlag} alt={country.name} />
+      <h3>id:{country.id}</h3>
+      <h3>Continent:{ country.continent?.replace(/^\s*{?\s*"?(.*?)"?\s*}?\s*$/, '$1')}</h3>
+      { country.capital && <h3>Capital: {country.capital?.replace(/^\s*{?\s*"?(.*?)"?\s*}?\s*$/, '$1') }</h3> }
+      { country.subregion && <h3>Subregion:{country.subregion}</h3>}
+      { country.area &&  <h3>Area: {country.area}</h3> }
+      <h3>Population: {country.population}</h3>
+        
     </>
   )
 };

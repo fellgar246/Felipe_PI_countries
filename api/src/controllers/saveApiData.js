@@ -9,10 +9,10 @@ const getApiData = async () => {
                 id: country.cca3 ,
                 name: country.name.common ,
                 image: country.flags[0],
-                continent: country.continents ,
-                capital: country.capital ? country.capital: "Not specified",
-                subregion: country.subregion ? country.subregion:  "Not specified",
-                area: country.area,
+                continent: country.continents,
+                capital: country.capital ? country.capital: null ,
+                subregion: country.subregion ? country.subregion: null ,
+                area: country.area ? country.area : null,
                 population: country.population,
             }
         })

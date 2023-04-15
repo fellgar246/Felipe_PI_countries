@@ -6,9 +6,8 @@ const Card = (props) => {
     <>
       <Link to={`/detail/${props.id}`}>
         <img src={props.image} alt={props.name} />
-        <h3>Name</h3>
         <h3>{props.name}</h3>
-        <h3>{props.continent}</h3>
+        <h3>{props.continent?.replace(/^\s*{?\s*"?(.*?)"?\s*}?\s*$/, '$1')}</h3>
       </Link>
        
     </>

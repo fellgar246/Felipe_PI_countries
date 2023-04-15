@@ -2,7 +2,7 @@ const { Country, Activity } = require("../db.js");
 const { Op } = require("sequelize");
 
 const findAllCountries = async() => {
-    const allCountries = await Country.findAll();
+    const allCountries = await Country.findAll({include:Activity});
     return allCountries
 }
 
