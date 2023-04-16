@@ -29,3 +29,5 @@ export const difficultyOptions = [
     1, 2, 3, 4, 5
 ]
 
+
+

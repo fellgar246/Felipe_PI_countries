@@ -1,11 +1,11 @@
 import Card from "../card/Card";
-//import styles from "./Cards.module.css";
+import styles from "./Cards.module.css";
 
 const Cards = (props) => {
  
 
   return (
-    <div>
+    <div className={styles.container} >
         {
             props.filteredCountries().map(({ id, name, image, continent}) => {
                 return <Card 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { validation, typeOptions, difficultyOptions } from './validation';
+import styles from "./Form.module.css";
 
 const Form = () => {
 
@@ -11,7 +12,7 @@ const Form = () => {
         season:'',
         country:[],
     })
-
+    // TODO: Agregar Validaciones
     const [errors, setErrors] = useState({
         name: '',
         type: '',
@@ -54,13 +55,13 @@ const Form = () => {
 
 
   return (
-    <div>
-        <h2>Create a new activity</h2>
-        <h3>on your favorite  country</h3>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+        <h2 className={styles.title}>Create a new activity</h2>
+        <h3 className={styles.subtitle}>on your favorite  country</h3>
+      <form onSubmit={handleSubmit} className={styles.form}>
 
         <label>
-            Name
+            Activity Name
         </label>
         <input
             type='text'
@@ -80,20 +81,6 @@ const Form = () => {
             <option disabled="">Choose a type</option>
             { typeOptions.map(type => (
                 <option value={type} key={type}>{type}</option>
-            ))}
-        </select> 
-
-        <label>
-            Difficulty
-        </label>
-        <select 
-            name='difficulty' 
-            value={activity.difficulty}  
-            onChange={handleInput}
-        >
-            <option disabled="">Choose a difficulty</option>
-            { difficultyOptions.map(num => (
-                <option value={num} key={num}>{num}</option>
             ))}
         </select> 
 
@@ -121,6 +108,21 @@ const Form = () => {
             <option value="Winter">Winter</option>
             <option value="Spring">Spring</option>
         </select> 
+
+        <label>
+            Difficulty
+        </label>
+        <select 
+            name='difficulty' 
+            value={activity.difficulty}  
+            onChange={handleInput}
+        >
+            <option disabled="">Choose a difficulty</option>
+            { difficultyOptions.map(num => (
+                <option value={num} key={num}>{num}</option>
+            ))}
+        </select> 
+
 
         <label>
             Country/Countries

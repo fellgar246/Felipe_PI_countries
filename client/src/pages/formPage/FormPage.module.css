@@ -1,0 +1,8 @@
+.container{
+    background-image: url("https://pixabay.com/get/ge84527f1263cab491b3ae9de76127761f393bb6a7adbee23760aba4af2b3f81baac3150bf80d31144a2dcbfb42f9a354f7999ff37f28488e3cfaa3c96b0442f8_1920.jpg");
+    background-size: cover; 
+    display: flex;
+    justify-content: flex-end;
+    min-height: 100vh;
+}
+

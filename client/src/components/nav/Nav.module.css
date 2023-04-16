@@ -1,0 +1,30 @@
+.header {
+    align-items: center;
+    background-color: #FFFF;
+    display: flex;
+    height: 93px;
+    justify-content: space-between;
+    padding: 22px 120px;
+    width: 100%;
+}
+
+.logo{
+    cursor: pointer;
+    color: black;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.links{
+    cursor: pointer;
+    color: #424242;
+    font-size: 1.3rem;
+    font-weight: 400;
+    padding: 0px 45px;
+}

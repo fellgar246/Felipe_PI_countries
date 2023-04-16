@@ -1,11 +1,16 @@
-import { Form } from "../../components";
+import { Form, Nav } from "../../components";
+import styles from "./FormPage.module.css";
 
 const FormPage = () => {
-  return (
-    <div>
-      <Form />
 
-    </div>
+  return (
+    <>
+      <Nav />
+      <div className={styles.container}>
+        <Form />
+      </div>
+      
+    </>
   )
 }
 
