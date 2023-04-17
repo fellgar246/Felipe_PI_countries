@@ -167,6 +167,7 @@ const Home = () => {
         </div>
      
       </div> 
+
       <div className={styles.containerFilters}>
         <div className={styles.subcontainerFilters}>
           <h3 className={styles.subtitle}>
@@ -214,36 +215,35 @@ const Home = () => {
           </select> 
         </div>
       </div>   
-      
-      <div className={styles.containerCards}>
-        <button 
-          onClick={prevPage}
-          className={styles.controllerButton}
-        >
-          <img 
-                  src='./icons/prev.svg' 
-                  alt='prevIcon'
-                  className={styles.prevIcon}
-                ></img>
-        </button>
-
-        { isLoading && <Loading />}
-        <Cards 
-          countries={countries} 
-          filteredCountries={filteredCountries}
-        />
-          <button 
-            onClick={nextPage}
-            className={styles.controllerButton}
-          >
-                <img 
-                  src='./icons/next.svg' 
-                  alt='nextIcon'
-                  className={styles.nextIcon}
-                ></img>
-        </button>
-      </div>
-
+       
+        { isLoading ? <Loading /> : (
+          <div className={styles.containerCards}>
+            <button 
+              onClick={prevPage}
+              className={styles.controllerButton}
+            >
+              <img 
+                      src='./icons/prev.svg' 
+                      alt='prevIcon'
+                      className={styles.prevIcon}
+                    ></img>
+            </button>
+            <Cards 
+              countries={countries} 
+              filteredCountries={filteredCountries}
+            />
+              <button 
+                onClick={nextPage}
+                className={styles.controllerButton}
+              >
+                    <img 
+                      src='./icons/next.svg' 
+                      alt='nextIcon'
+                      className={styles.nextIcon}
+                    ></img>
+            </button>
+          </div>          
+        )} 
     </>
   )
 }

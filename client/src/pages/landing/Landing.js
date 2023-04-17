@@ -36,7 +36,7 @@ const Landing = () => {
     <div className={styles.section}>
  
       <div style={bgImageStyle}>
-        H <div className={styles.container}>
+        <div className={styles.container}>
         <div className={styles.bannerText}>
             <h2 className={styles.title}>Henry Countries</h2>
             <NavLink to={"/home"}>
