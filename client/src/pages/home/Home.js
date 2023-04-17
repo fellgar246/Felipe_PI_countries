@@ -151,74 +151,98 @@ const Home = () => {
       <Nav/>
       <div className={styles.hero}>
         <h2 className={styles.title}>Search for a country</h2>
-        <input 
-          type='text'
-          placeholder='Buscar País'
-          value={search}
-          onChange={onSearch}
-          className={styles.searchBar}
-        />
-      </div>    
-      <div>
-        <h3 className={styles.subtitle}>
-          filter by
-        </h3>
-        <select 
-              onChange={onByType} 
-              className={styles.selector}
-          >
-              <option disabled="">activity</option>
-              { typeOptions.map(type => (
-                  <option value={type} key={type}>{type}</option>
-              ))}
-        </select>
-        <select 
-          onChange={onByContinent}
-          className={styles.selector} 
-        >
-          <option disabled="">continent</option>
-          { continents.map(element => (
-              <option value={element.value} key={element.name}>{element.name}</option>
-          ))}
-        </select>
-      </div>
-
-      <div >
-        <h3 className={styles.subtitle}>
-          order by
-        </h3>
-        <select 
-          onChange={onByPopulation}
-          className={styles.selector}
-        >
-          <option disabled="">population</option>
-          <option value="ascending">Ascending</option>
-          <option value="descending">Descending</option>
-        </select>     
-        <select 
-          onChange={onByName}
-          className={styles.selector}
-        >
-          <option disabled="">alphabetically</option>
-          <option value="ascending">Ascending</option>
-          <option value="descending">Descending</option>
-        </select> 
-      </div>
+        <div className={styles.containerSearch}> 
+          <input 
+            type='text'
+            placeholder='Search . . .'
+            value={search}
+            onChange={onSearch}
+            className={styles.searchBar}
+          />
+          <img 
+            src='./icons/search.svg' 
+            alt='searchIcon'
+            className={styles.searchIcon}
+          />
+        </div>
      
-      <button onClick={prevPage}>
-        Prev
-      </button>
-   
-      &nbsp;
-      <button onClick={nextPage}>
-        Next
-      </button>
+      </div> 
+      <div className={styles.containerFilters}>
+        <div className={styles.subcontainerFilters}>
+          <h3 className={styles.subtitle}>
+            filter by
+          </h3>
+          <select 
+                onChange={onByType} 
+                className={styles.selector}
+            >
+                <option disabled="">activity</option>
+                { typeOptions.map(type => (
+                    <option value={type} key={type}>{type}</option>
+                ))}
+          </select>
+          <select 
+            onChange={onByContinent}
+            className={styles.selector} 
+          >
+            <option disabled="">continent</option>
+            { continents.map(element => (
+                <option value={element.value} key={element.name}>{element.name}</option>
+            ))}
+          </select>
+        </div>
 
-      { isLoading && <Loading />}
-      <Cards 
-        countries={countries} 
-        filteredCountries={filteredCountries}
-      />
+        <div className={styles.subcontainerFilters} >
+          <h3 className={styles.subtitle}>
+            order by
+          </h3>
+          <select 
+            onChange={onByPopulation}
+            className={styles.selector}
+          >
+            <option disabled="">population</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+          </select>     
+          <select 
+            onChange={onByName}
+            className={styles.selector}
+          >
+            <option disabled="">alphabetically</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+          </select> 
+        </div>
+      </div>   
+      
+      <div className={styles.containerCards}>
+        <button 
+          onClick={prevPage}
+          className={styles.controllerButton}
+        >
+          <img 
+                  src='./icons/prev.svg' 
+                  alt='prevIcon'
+                  className={styles.prevIcon}
+                ></img>
+        </button>
+
+        { isLoading && <Loading />}
+        <Cards 
+          countries={countries} 
+          filteredCountries={filteredCountries}
+        />
+          <button 
+            onClick={nextPage}
+            className={styles.controllerButton}
+          >
+                <img 
+                  src='./icons/next.svg' 
+                  alt='nextIcon'
+                  className={styles.nextIcon}
+                ></img>
+        </button>
+      </div>
 
     </>
   )

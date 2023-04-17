@@ -37,6 +37,10 @@ module.exports = (sequelize) => {
     duration: {
         type: DataTypes.FLOAT,
         allowNull: false,
+        validate: {
+            min: 0,
+            max: 24
+        }
     },
     season: {
         type: DataTypes.ENUM(

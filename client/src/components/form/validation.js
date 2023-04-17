@@ -8,6 +8,7 @@ export function validation(inputs) {
     if(!inputs.difficulty) errors.difficulty = 'Please choose a difficulty number';
     if(!inputs.duration) errors.duration = 'Duration of the activity is required';
     if(inputs.duration === 0 || inputs.duration < 0) errors.duration = 'Duration must be more than cero';
+    if(inputs.duration >= 24) errors.duration = 'Duration cannot be 24hrs o more';
     if(!inputs.season) errors.season = 'Please select a season';
     if(!inputs.country.length) errors.country = 'A country or countries are required';
 

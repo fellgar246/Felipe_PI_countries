@@ -14,7 +14,7 @@ const Form = () => {
     })
     // TODO: validacion de duracion cuando es cero
     //TODO: CSS cambiar el tamaño del formulario cuando no hay errores
-    //TODO: button darle effecto hover
+    //TODO: button darle effecto hover flex grow
     const [errors, setErrors] = useState({
         name: '',
         type: '',

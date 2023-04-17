@@ -8,6 +8,7 @@
 .section{
     background: #000;
     min-height: 100vh;
+    position: relative;
 }
 
 .bannerVideo{
@@ -92,6 +93,8 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
+
+
 
 
 @media (max-width: 800px) {

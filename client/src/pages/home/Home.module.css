@@ -1,29 +1,57 @@
 .hero{
-    background-image: url("../../assets/img/paradise-beach.jpg");
-    height: 170px;
+    background-image: url("../../assets/img/map-vintage.jpg");
+    height: 150px;
     background-size: cover; 
     display: flex;
     align-items: center;
     justify-content: center;
     background-position: center;
+    column-gap: 100px;
 }
 
 .title{
     color: #fff;   
     font-size: 3rem;
     font-weight: 700;
-  
-  
+}
+
+.containerSearch{
+    display: flex;
+    justify-content: flex-end;
 }
 
 .searchBar{
     background-color: #fff;
     border-radius: 46px;
     height: 44px;
-    padding: 6px;
+    padding: 0px 15px;
     width: 290px;
     border-color: unset;
     border-style: unset;
+   
+}
+
+.searchIcon{
+    position: relative;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    margin-left: -40px;
+    margin-top: 5px;
+}
+
+.containerFilters{
+    display: flex;
+    height: 130px;
+    justify-content: center;
+    align-items: center;
+    column-gap: 60px;
+
+}
+
+.subcontainerFilters{
+    display: flex;
+    column-gap: 15px;
 }
 
 .subtitle{
@@ -42,4 +70,39 @@
     font-size: 1rem;
     color: #818181;
     padding-left: 8px;
+}
+.containerCards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controllerButton{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0 0 4px rgba(0,0,0,0.25);
+    margin: 50px;
+}
+
+.controllerButton:hover{
+    transform: scaleX(1.1) scaleY(1.1);
+}
+
+.nextIcon {
+    margin-top: 3px;
+    height: 38px;
+    width: 38px;
+    font-size: 37px;
+    margin-left: 4px;
+}
+
+.prevIcon {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    margin-top: 3px;
+    margin-left: -4px;
 }
