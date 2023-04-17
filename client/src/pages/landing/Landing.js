@@ -17,9 +17,7 @@ const Landing = () => {
               <NavLink to={"/home"}>
                 <button >INGRESA</button>
               </NavLink>
-              <p className={styles.text}>
-                Lorem............
-              </p> 
+        
           </div>
         </div>
       </div>
