@@ -2,7 +2,7 @@ import { Landing, Home, FormPage, Detail } from "./pages";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
-  //TODO: Ver si se agregan Heder y Footer
+ 
   return (
     <>
      <BrowserRouter>
@@ -13,7 +13,7 @@ function App() {
           <Route path='/home'>
             <Home />
           </Route>
-          <Route path='/Form'>
+          <Route path='/form'>
             <FormPage />
           </Route>
           <Route path="/detail/:idPais">

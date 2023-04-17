@@ -3,13 +3,13 @@
 
 export function validation(inputs) {
   const errors = {}
-
-//   if (!regexEmail.test(inputs.username)) errors.username = 'Nombre debe ser un email válido';
-//   if (!inputs.username) errors.username = 'El nombre es obligatorio';
-//   if (inputs.username.length > 35) errors.username = 'Máximo de 35 caracteres';
-  
-//   if (!regexPass.test(inputs.password)) errors.password = 'Debe tener al menos un número';
-//   if (inputs.password.length < 6 || inputs.password.length > 10 ) errors.password = 'Debe tener entre 6 y 10 caracteres.';
+    if(!inputs.name) errors.name = 'Activity name is required ';
+    if(!inputs.type) errors.type = 'Please choose an activity type';
+    if(!inputs.difficulty) errors.difficulty = 'Please choose a difficulty number';
+    if(!inputs.duration) errors.duration = 'Duration of the activity is required';
+    if(inputs.duration === 0 || inputs.duration < 0) errors.duration = 'Duration must be more than cero';
+    if(!inputs.season) errors.season = 'Please select a season';
+    if(!inputs.country.length) errors.country = 'A country or countries are required';
 
   return errors;
 }

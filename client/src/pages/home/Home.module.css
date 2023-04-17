@@ -1,10 +1,11 @@
 .hero{
-    background-image: url("https://pixabay.com/get/g06a1b9bf28a707a947059fa30bdd580089be8f3385cacf08f903c272b22567d3b7f6edb39cc4b1e64557a6f013d08115ab46a2d5ad008adda9e677bbb9f8e5ee_1920.jpg");
+    background-image: url("../../assets/img/paradise-beach.jpg");
     height: 170px;
     background-size: cover; 
     display: flex;
     align-items: center;
     justify-content: center;
+    background-position: center;
 }
 
 .title{
