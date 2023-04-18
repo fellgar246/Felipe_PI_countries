@@ -15,9 +15,7 @@ const Form = () => {
         season:'',
         country:[],
     })
-    // TODO: validacion de duracion cuando es cero
-    //TODO: CSS cambiar el tamaño del formulario cuando no hay errores
-    //TODO: button darle effecto hover flex grow
+    //TODO: validacion de duracion cuando es cero
     const [errors, setErrors] = useState({
         name: '',
         type: '',
