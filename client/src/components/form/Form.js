@@ -15,7 +15,7 @@ const Form = () => {
         season:'',
         country:[],
     })
-    //TODO: validacion de duracion cuando es cero
+
     const [errors, setErrors] = useState({
         name: '',
         type: '',
@@ -24,7 +24,7 @@ const Form = () => {
         season:'',
         country:[],
     })
-
+    //TODO name no pueda tener numeros
     const handleInput = (event) => {
         const { name, value } = event.target
         if(errors){
@@ -34,8 +34,11 @@ const Form = () => {
             setHeight('600px')
         }
         if(Object.entries(errors).length <= 2){
-            setHeight('530px')
+            setHeight('570px')
         }
+        if(Object.entries(errors).length <= 1){
+          setHeight('550px')
+      }
         setActivity({
             ...activity,
             [name]: value

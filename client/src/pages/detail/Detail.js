@@ -15,7 +15,6 @@ const Detail = () => {
       setCountry(data)
     })
   }, [idPais]);
-  //TODO dar formato de número con comas por millares
 
   return (
     <>
@@ -76,7 +75,7 @@ const Detail = () => {
                       Area:
                     </h3>
                     <h3 className={styles.text}>
-                      {country.area}
+                      {country.area.toLocaleString('en', {useGrouping:true})}
                     </h3>
                   </div>
                 }
@@ -85,7 +84,7 @@ const Detail = () => {
                     Population: 
                   </h3>
                   <h3 className={styles.text}>
-                    {country.population}
+                    {country.population.toLocaleString('en', {useGrouping:true})}
                   </h3>
                 </div>
               </div>        

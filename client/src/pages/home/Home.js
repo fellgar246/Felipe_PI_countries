@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCountries } from '../../redux/actions'; 
 import { Cards, Loading, Nav, typeOptions } from "../../components";
 import styles from "./Home.module.css";
 
 const Home = () => {
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const countries = state.countries;
 
   //DOM states
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
   //const [prevButton, setPrevButton] = useState(true);
-  //Data states
-  const [countries, setCountries] = useState([]);
   //Filters states
   const [byType, setByType] = useState([]);
   const [byName, setByName] = useState([]);
@@ -18,13 +21,10 @@ const Home = () => {
   const [byPopulation, setByPopulation] = useState([]);
 
   useEffect(() => { 
-    fetch(`http://localhost:3001/countries/`)
-     .then((response) => response.json())
-     .then((data) => {
-        if(!data.length) return window.alert("No hay resultados para esa busqueda");
-        setIsLoading(false)
-        setCountries(data)
-    })
+
+    dispatch(getCountries())
+    setIsLoading(false)
+  
   }, [])
 
   const filteredCountries = () =>{
@@ -160,7 +160,7 @@ const Home = () => {
     }
     setCurrentPage( currentPage + 10)
   }
-  //TODO Prev button
+
   const prevPage = () => {
     if(currentPage > 0) {
       setCurrentPage( currentPage - 10);
@@ -249,7 +249,8 @@ const Home = () => {
        
         { isLoading ? <Loading /> : (
           <div className={styles.containerCards}>
-            <button 
+            {currentPage === 0 ? <span className={styles.span}></span> : (
+              <button 
               onClick={prevPage}
               className={styles.controllerButton}
             >
@@ -259,8 +260,8 @@ const Home = () => {
                       className={styles.prevIcon}
                     ></img>
             </button>
+            )}           
             <Cards 
-              countries={countries} 
               filteredCountries={filteredCountries}
             />
               <button 
