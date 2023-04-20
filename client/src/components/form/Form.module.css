@@ -21,7 +21,7 @@
     flex-direction: column;
     position: relative;
     row-gap: 15px;
-    top:50px; 
+    top:35px; 
     width: 380px;
 }
 
@@ -95,7 +95,7 @@
     overflow-y: auto;
     height: 150px;
     background: #f4f3f3;
-    padding: 8px;
+    padding: 8px 13px;
     border-radius: 15px;
 }
 
@@ -163,7 +163,7 @@
     background-color: black;
     border-radius: 25px;
     height: 50px;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 145px;
 }
 
