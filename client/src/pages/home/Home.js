@@ -13,12 +13,14 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
-  //const [prevButton, setPrevButton] = useState(true);
   //Filters states
   const [byType, setByType] = useState([]);
   const [byName, setByName] = useState([]);
   const [byContinent, setByContinent] = useState([])
   const [byPopulation, setByPopulation] = useState([]);
+
+  //TODO Habilitar Loader
+  //TODO cambiar imagenes de fondo 
 
   useEffect(() => { 
 

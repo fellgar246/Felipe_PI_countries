@@ -1,44 +1,80 @@
 import { useState } from 'react';
-import { validation, typeOptions, difficultyOptions } from './validation';
+import { validation, typeOptions, difficultyOptions, countriesOptions } from './validation';
 import styles from "./Form.module.css";
 
 const Form = () => {
 
-    const [height, setHeight] = useState('530px');
+    const [height, setHeight] = useState('640px');
     const [errorButton, setErrorButton] = useState(false);
-
     const [activity, setActivity] = useState({
-        name: '',
-        type: '',
-        difficulty: '',
-        duration: '',
-        season:'',
-        country:[],
+      name: '',
+      type: '',
+      difficulty: '',
+      duration: '',
+      season:'',
     })
-
     const [errors, setErrors] = useState({
-        name: '',
-        type: '',
-        difficulty: '',
-        duration: '',
-        season:'',
-        country:[],
+      name: '',
+      type: '',
+      difficulty: '',
+      duration: '',
+      season:'',
     })
-    //TODO name no pueda tener numeros
+    const [countryList, setCountryList] = useState([
+      {country: ''},
+    ]);
+    const [finalList, setFinalList] = useState([])
+
+    const handleCountryAdd = () => {
+      setCountryList([...countryList, {country: ""}])
+    }
+
+    const handleCountryRemove = (index) => {
+      const list = [...countryList]
+      list.splice(index, 1);
+      setCountryList(list)
+    }
+
+    const handleCountryChange = (e, index) => {
+      const {name, value} = e.target;
+      const list = [...countryList];
+      list[index][name] = value
+
+      const result = list.map((e) => Object.values(e)).flat()
+      setFinalList(result.filter(e => e !== ''))
+
+      if(result.length!== new Set(result).size) errors.country = "No countries duplicated allowed";
+      else errors.country = "";
+    }
+
+    //TODO
+    //!BORRAR
+    console.log(activity);
+    console.log(finalList);
+    console.log("errors", errors);
+
+    //TODO: Limpiar
+    //TODO poner color seccion de paises
+    //TODO adaptar forumlario
     const handleInput = (event) => {
-        const { name, value } = event.target
-        if(errors){
-            setHeight('620px')
+      const { name, value } = event.target
+       if(errors){
+            setHeight('720px')
+            setErrorButton(true)
         }
         if(Object.entries(errors).length <= 4){
-            setHeight('600px')
+            setHeight('700px')
+            setErrorButton(true)
         }
         if(Object.entries(errors).length <= 2){
-            setHeight('570px')
+            setHeight('670px')
+            setErrorButton(true)
         }
         if(Object.entries(errors).length <= 1){
-          setHeight('550px')
+          setHeight('650px')
+          setErrorButton(true)
       }
+
         setActivity({
             ...activity,
             [name]: value
@@ -49,15 +85,16 @@ const Form = () => {
                 [name]: value
             })
         )
-        setErrorButton(false)
       
     }
+    console.log(errorButton);
   
     const handleSubmit = async (event) => {
         event.preventDefault();
+        
         if(Object.entries(errors).length === 0){             
-            if(activity.country.length > 1) activity.country = activity.country.split(',');
-            
+            activity.country = finalList
+
             await fetch( "http://localhost:3001/activities",
                 {
                     method: "POST",
@@ -67,18 +104,20 @@ const Form = () => {
                     body: JSON.stringify(activity)
                 }
             ); 
-            console.log("Success:", activity);
             setActivity({ 
                 name: '',
                 type: '',
                 difficulty: '',
                 duration: '',
                 season:'',
-                country:[],
             })
-        }else{
-            setErrorButton(true)
+            setCountryList([
+                {country: ''},
+            ])
         }
+        // else{
+        //     setErrorButton(true)
+        // }
     }
 
     const container = {
@@ -101,9 +140,9 @@ const Form = () => {
     <div style={container}>
       <h2 className={styles.title}>Create a new activity</h2>
       <h3 className={styles.subtitle}>on your favorite country</h3>
-      {errorButton && <p className={styles.errorButton}>
+      {/* {errorButton && <p className={styles.errorButton}>
                 All fields must be filled out   
-        </p>}
+        </p>} */}
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.container_division}>
           <label className={styles.label}>Activity Name</label>
@@ -193,21 +232,70 @@ const Form = () => {
             )}
           </div>
         </div>
-
-        <div className={styles.container_division}>
-          <label className={styles.label}>Country/Countries</label>
-          <input
-            type="text"
-            name="country"
-            value={activity.country}
-            onChange={handleInput}
-            className={styles.inputLarge}
-          />
-          {errors.country && <p className={styles.error}>{errors.country}</p>}
+        
+        <div className={styles.container_division_country}>
+          <label className={styles.label}>
+            Country/Countries
+          </label>
+          {errors.country && (
+          <p className={styles.error}>{errors.country}</p>
+          )}
+          <div className={styles.container_subdivision_country}>
+            {countryList.map((singleCountry, index) => (
+              <div key={index} className={styles.container_element_country}>
+                <select
+                  name="country"
+                  value={singleCountry.country}
+                  className={styles.inputMedium_Country}
+                  onChange={(e) => handleCountryChange(e, index)}
+                >
+                  <option disabled="" value="">
+                    Choose Country
+                  </option>
+                  {countriesOptions.map((country) => (
+                    <option value={country.id} key={country.id}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>  
+                <>
+                  {countryList.length - 1 === index && countryList.length < 10 &&
+                    <button 
+                      type='button' 
+                      onClick={handleCountryAdd}
+                      className={styles.countryButton}
+                    >
+                      <img 
+                          src='./icons/add.svg' 
+                          alt='addIcon'
+                          className={styles.addIcon}
+                      ></img>  
+                    </button>
+                  }
+                </>            
+                <>
+                  {countryList.length > 1 && (
+                    <button 
+                      type='button' 
+                      onClick={()=> handleCountryRemove(index)}
+                      className={styles.countryButton}
+                    >
+                      <img 
+                          src='./icons/minus.svg' 
+                          alt='minusIcon'
+                          className={styles.minusIcon}
+                      ></img>
+                    </button>
+                  )}
+                </>
+              </div>
+            ))}   
+          </div>
         </div>
+ 
         <button type="submit" className={styles.button}>
           <span className={styles.button_text}>create</span>
-        </button>
+          </button>
       </form>
     </div>
   );

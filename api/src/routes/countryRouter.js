@@ -1,5 +1,5 @@
 const { findAllCountries, countryById, countryByName } = require('../controllers/countryController');
-const { findActivity } = require('../controllers/activityController')
+
 
 const allCountriesRouter = async(req, res) => {
     try {
