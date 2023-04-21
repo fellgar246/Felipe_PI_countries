@@ -83,8 +83,7 @@
 .container_division_country{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin-left: 10px;
+    width: 97%;
 }
 
 .container_subdivision_country{
