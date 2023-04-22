@@ -1,5 +1,5 @@
 .container{
-    background-image: url("../../assets/img/hot-air-balloons.jpg");
+    background-image: url("../../assets/img/map_fondo.jpg");
     background-size: cover; 
     display: flex;
     justify-content: flex-end;
@@ -63,4 +63,25 @@
     font-size: 1rem;
     color: black;
     margin-left: 15px;
+}
+
+.returnIcon{
+    width: 20px;
+    height: 20px;
+}
+
+.controllerButton{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0 0 4px rgba(0,0,0,0.25);
+    margin: 50px;
+    top: -15px;
+    position: relative;
+}
+
+.controllerButton:hover{
+    transform: scaleX(1.1) scaleY(1.1);
 }

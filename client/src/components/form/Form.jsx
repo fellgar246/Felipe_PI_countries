@@ -27,6 +27,7 @@ const Form = () => {
     setCountryList([...countryList, { country: "" }]);
   };
 
+  //TODO input con formato de hora
   const handleCountryRemove = (index) => {
     const list = [...countryList];
     list.splice(index, 1);

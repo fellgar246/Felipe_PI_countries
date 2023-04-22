@@ -13,6 +13,7 @@
     color: black;
     font-size: 2rem;
     font-weight: 700;
+    margin-right: 15px;
 }
 
 .nav{
@@ -27,4 +28,41 @@
     font-size: 1.3rem;
     font-weight: 400;
     padding: 0px 45px;
+}
+
+
+@media (max-width: 720px) {
+    .logo{
+        cursor: pointer;
+        color: black;
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin-right: 15px;
+    }
+
+    .links{
+        cursor: pointer;
+        color: #424242;
+        font-size: 1.1rem;
+        font-weight: 400;
+        padding: 0px 45px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo{
+        cursor: pointer;
+        color: black;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-right: 10px;
+    }
+
+    .links{
+        cursor: pointer;
+        color: #424242;
+        font-size: .8rem;
+        font-weight: 400;
+        padding: 0px 20px;
+    }
 }

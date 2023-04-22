@@ -10,7 +10,6 @@ const Home = () => {
   const countries = state.countries;
 
   //DOM states
-  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
   //Filters states
@@ -19,13 +18,14 @@ const Home = () => {
   const [byContinent, setByContinent] = useState([]);
   const [byPopulation, setByPopulation] = useState([]);
 
-  //TODO Habilitar Loader
   //TODO cambiar imagenes de fondo
   //TODO responsive
+  //TODO paginado
+  //TODO al momento de hacer search nextIcon desaparece
 
   useEffect(() => {
     dispatch(getCountries());
-    setIsLoading(false);
+    
   }, []);
 
   const filteredCountries = () => {
@@ -218,76 +218,78 @@ const Home = () => {
           />
         </div>
       </div>
-
-      <div className={styles.containerFilters}>
-        <div className={styles.subcontainerFilters}>
-          <h3 className={styles.subtitle}>filter by</h3>
-          <select onChange={onByType} className={styles.selector}>
-            <option disabled="" value="">
-              activity
-            </option>
-            {typeOptions.map((type) => (
-              <option value={type} key={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-          <select onChange={onByContinent} className={styles.selector}>
-            <option disabled="" value="">
-              continent
-            </option>
-            {continents.map((element) => (
-              <option value={element.value} key={element.name}>
-                {element.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles.subcontainerFilters}>
-          <h3 className={styles.subtitle}>order by</h3>
-          <select onChange={onByPopulation} className={styles.selector}>
-            <option disabled="" value="">
-              population
-            </option>
-            <option value="ascending">Ascending</option>
-            <option value="descending">Descending</option>
-          </select>
-          <select onChange={onByName} className={styles.selector}>
-            <option disabled="" value="">
-              alphabetically
-            </option>
-            <option value="ascending">A-Z</option>
-            <option value="descending">Z-A</option>
-          </select>
-        </div>
-      </div>
-
-      {isLoading ? (
+      {!countries.length ? (
         <Loading />
-      ) : (
-        <div className={styles.containerCards}>
-          {currentPage === 0 ? (
-            <span className={styles.span}></span>
-          ) : (
-            <button onClick={prevPage} className={styles.controllerButton}>
+      ) : (<>
+        <div className={styles.containerFilters}>
+          <div className={styles.subcontainerFilters}>
+            <h3 className={styles.subtitle}>filter by</h3>
+            <select onChange={onByType} className={styles.selector}>
+              <option disabled="" value="">
+                activity
+              </option>
+              {typeOptions.map((type) => (
+                <option value={type} key={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+            <select onChange={onByContinent} className={styles.selector}>
+              <option disabled="" value="">
+                continent
+              </option>
+              {continents.map((element) => (
+                <option value={element.value} key={element.name}>
+                  {element.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.subcontainerFilters}>
+            <h3 className={styles.subtitle}>order by</h3>
+            <select onChange={onByPopulation} className={styles.selector}>
+              <option disabled="" value="">
+                population
+              </option>
+              <option value="ascending">Ascending</option>
+              <option value="descending">Descending</option>
+            </select>
+            <select onChange={onByName} className={styles.selector}>
+              <option disabled="" value="">
+                alphabetically
+              </option>
+              <option value="ascending">A-Z</option>
+              <option value="descending">Z-A</option>
+            </select>
+          </div>
+        </div>
+
+    
+          <div className={styles.containerCards}>
+            {currentPage === 0 ? (
+              <span className={styles.span}></span>
+            ) : (
+              <button onClick={prevPage} className={styles.controllerButton}>
+                <img
+                  src="./icons/prev.svg"
+                  alt="prevIcon"
+                  className={styles.prevIcon}
+                ></img>
+              </button>
+            )}
+            <Cards filteredCountries={filteredCountries} />
+          <button
+              onClick={nextPage}
+              className={styles.controllerButton}>
               <img
-                src="./icons/prev.svg"
-                alt="prevIcon"
-                className={styles.prevIcon}
+                src="./icons/next.svg"
+                alt="nextIcon"
+                className={styles.nextIcon}
               ></img>
             </button>
-          )}
-          <Cards filteredCountries={filteredCountries} />
-          <button onClick={nextPage} className={styles.controllerButton}>
-            <img
-              src="./icons/next.svg"
-              alt="nextIcon"
-              className={styles.nextIcon}
-            ></img>
-          </button>
-        </div>
-      )}
+          </div>
+      </>)}
     </>
   );
 };

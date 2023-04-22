@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Nav, Loading } from '../../components';
 import styles from './Detail.module.css';
 
 const Detail = () => {
 
   const { idPais } = useParams();
-  const [country, setCountry] = useState('')
+  const [country, setCountry] = useState('');
 
+  const history = useHistory();
+
+  //TODO Imagen para regresar
   //TODO responsive mobile
   useEffect(() => {
     fetch(`http://localhost:3001/countries/${idPais}`)
@@ -88,12 +91,21 @@ const Detail = () => {
                     {country.population.toLocaleString('en', {useGrouping:true})}
                   </h3>
                 </div>
-              </div>        
+              </div> 
+              <button
+                onClick={() => history.push("/home")}
+                className={styles.controllerButton}
+              >
+                <img 
+                  src="./icons/returnv1.svg"
+                  alt='return'
+                  className={styles.returnIcon}
+                ></img>
+              </button>  
             </div>
           </>
         )}  
       </div>
-     
         
     </>
   )

@@ -4,8 +4,6 @@ import styles from "./Card.module.css";
 
 const Card = (props) => {
 
-  //TODO efecto over de  card
-  //TODO vista responsive
   return (
     <div className={styles.container}>
 

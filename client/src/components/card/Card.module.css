@@ -13,6 +13,11 @@
 
 }
 
+.image:hover{
+    transform: scaleX(1.1) scaleY(1.1);
+    box-shadow: 0 0 4px rgba(0,0,0,0.25);
+}
+
 .title{
     color: black;
     cursor: pointer;
