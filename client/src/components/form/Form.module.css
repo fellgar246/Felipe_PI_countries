@@ -110,7 +110,8 @@
     border-style: unset;
     height: 30px;
     padding-left: 10px;
-    width: 280px;
+    margin-right: 2px;
+    width: 270px;
 }
 
 .countryButton{
@@ -123,7 +124,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 3px;
+    margin-left: 2px;
 }
 
 .countryButton:hover{
@@ -178,3 +179,6 @@
     font-weight: 300;
 }
 
+@media (max-width: 375px)  {
+    
+}

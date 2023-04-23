@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Nav, Loading } from '../../components';
 import styles from './Detail.module.css';
+import returnIcon from '../../assets/icons/returnv2.svg'
 
 const Detail = () => {
 
@@ -10,7 +11,6 @@ const Detail = () => {
 
   const history = useHistory();
 
-  //TODO Imagen para regresar
   //TODO responsive mobile
   useEffect(() => {
     fetch(`http://localhost:3001/countries/${idPais}`)
@@ -96,11 +96,11 @@ const Detail = () => {
                 onClick={() => history.push("/home")}
                 className={styles.controllerButton}
               >
-                <img 
-                  src="./icons/returnv1.svg"
-                  alt='return'
+                <img
+                  src={returnIcon}
+                  alt="returnIcon"
                   className={styles.returnIcon}
-                ></img>
+                />
               </button>  
             </div>
           </>

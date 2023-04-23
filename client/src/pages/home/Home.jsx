@@ -1,27 +1,46 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCountries } from '../../redux/actions'; 
+import { 
+          getCountries, 
+          getByPopulation, 
+          adjustByPopulation, 
+          getByName, 
+          adjustByName ,
+          getByContinent,
+          adjustByContinent,
+          getByType,
+          adjustByType,
+          getBySearch,
+          adjustBySearch
+        } from '../../redux/actions'; 
 import { Cards, Loading, Nav, typeOptions } from "../../components";
+
 import styles from "./Home.module.css";
+import nextIcon from "../../assets/icons/next.svg";
+import prevIcon from "../../assets/icons/prev.svg";
+import searchIcon from "../../assets/icons/search.svg";
 
 const Home = () => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const countries = state.countries;
+  const byPopulation = state.byPopulation;
+  const byName = state.byName;
+  const byContinent = state.byContinent;
+  const byType = state.byType;
+  const bySearch = state.bySearch;
+  const noResults = state.results;
 
   //DOM states
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
-  //Filters states
-  const [byType, setByType] = useState([]);
-  const [byName, setByName] = useState([]);
-  const [byContinent, setByContinent] = useState([]);
-  const [byPopulation, setByPopulation] = useState([]);
+  //const [noResults, setNoResults] = useState(false)
+
 
   //TODO cambiar imagenes de fondo
   //TODO responsive
   //TODO paginado
-  //TODO al momento de hacer search nextIcon desaparece
+  //TODO not found comoponent
 
   useEffect(() => {
     dispatch(getCountries());
@@ -29,15 +48,11 @@ const Home = () => {
   }, []);
 
   const filteredCountries = () => {
-    if (search.length === 0) countries.slice(currentPage, currentPage + 10);
-
-    const findcountry = search
-      .charAt(0)
-      .toUpperCase()
-      .concat(search.substring(1, search.length));
-    const filtered = countries.filter((country) =>
-      country.name.includes(findcountry)
-    );
+ 
+    //filter by Search
+    if (bySearch.length) {
+      return bySearch.slice(currentPage, currentPage + 10);
+    }
 
     //filter by Type
     if (byType.length) {
@@ -56,114 +71,45 @@ const Home = () => {
       return byName.slice(currentPage, currentPage + 10);
     }
 
-    return filtered.slice(currentPage, currentPage + 10);
+    return countries.slice(currentPage, currentPage + 10);
   };
 
   const onSearch = ({ target }) => {
-    setSearch(target.value);
+    setSearch(target.value)
+    dispatch(getBySearch(search))
+    dispatch(adjustBySearch())
     setCurrentPage(0);
-    setByType([]);
-    setByName([]);
-    setByContinent([]);
-    setByPopulation([]);
   };
 
   const onByType = ({ target }) => {
-    handleByType(target.value);
+    dispatch(getByType(target.value))
+    dispatch(adjustByType())
     setCurrentPage(0);
-    setSearch("");
-    setByName([]);
-    setByContinent([]);
-    setByPopulation([]);
-  };
-  const handleByType = (value) => {
-    const copyCountries = [...countries];
-    const filtered = copyCountries
-      .filter((e) => e.Activities.filter((a) => a.type === value).length > 0)
-      .flat();
-    const data = filtered.filter((element) => typeof element === "object");
-    //TODO: Mensaje de error cuando no encuentra ninguna categoría
-    setByType(data);
   };
 
   const onByContinent = ({ target }) => {
-    handleByContinent(target.value);
+    dispatch(getByContinent(target.value))
+    dispatch(adjustByContinent())
     setCurrentPage(0);
-    setSearch("");
-    setByType([]);
-    setByName([]);
-    setByPopulation([]);
-  };
-  const handleByContinent = (value) => {
-    const copyCountries = [...countries];
-    const filtered = copyCountries.filter(
-      (country) => country.continent === value
-    );
-    setByContinent(filtered);
   };
 
   const onByName = ({ target }) => {
-    handleByName(target.value);
+    dispatch(getByName(target.value))
+    dispatch(adjustByName())
     setCurrentPage(0);
-    setSearch("");
-    setByType([]);
-    setByContinent([]);
-    setByPopulation([]);
-  };
-  const handleByName = (value) => {
-    const copyCountries = [...countries];
-    let filtered = [];
-    if (value === "ascending") {
-      filtered = copyCountries.sort(function (a, b) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
-    }
-    if (value === "descending") {
-      filtered = copyCountries.sort(function (a, b) {
-        if (a.name < b.name) {
-          return 1;
-        }
-        if (a.name > b.name) {
-          return -1;
-        }
-        return 0;
-      });
-    }
-    setByName(filtered);
   };
 
   const onByPopulation = ({ target }) => {
-    handleByPopulation(target.value);
+    dispatch(getByPopulation(target.value));
+    dispatch(adjustByPopulation())
     setCurrentPage(0);
-    setSearch("");
-    setByType([]);
-    setByName([]);
-    setByContinent([]);
-  };
-  const handleByPopulation = (value) => {
-    const copyCountries = [...countries];
-    let filteredPopulation = [];
-    if (value === "ascending") {
-      filteredPopulation = copyCountries.sort(
-        (a, b) => a.population - b.population
-      );
-    }
-    if (value === "descending") {
-      filteredPopulation = copyCountries.sort(
-        (a, b) => b.population - a.population
-      );
-    }
-    setByPopulation(filteredPopulation);
   };
 
   //controllers of buttons next and prev page
   const nextPage = () => {
+    if (bySearch.length) {
+      if (bySearch.length < currentPage + 20) return;
+    }
     if (byType.length) {
       if (byType.length < currentPage + 10) return;
     }
@@ -212,7 +158,7 @@ const Home = () => {
             className={styles.searchBar}
           />
           <img
-            src="./icons/search.svg"
+            src={searchIcon}
             alt="searchIcon"
             className={styles.searchIcon}
           />
@@ -265,30 +211,31 @@ const Home = () => {
           </div>
         </div>
 
-    
+        {noResults ? <p>No hay sultados</p> : 
           <div className={styles.containerCards}>
             {currentPage === 0 ? (
               <span className={styles.span}></span>
             ) : (
               <button onClick={prevPage} className={styles.controllerButton}>
                 <img
-                  src="./icons/prev.svg"
+                  src={prevIcon}
                   alt="prevIcon"
                   className={styles.prevIcon}
                 ></img>
               </button>
             )}
-            <Cards filteredCountries={filteredCountries} />
+              <Cards filteredCountries={filteredCountries} />
           <button
               onClick={nextPage}
               className={styles.controllerButton}>
               <img
-                src="./icons/next.svg"
+                src={nextIcon}
                 alt="nextIcon"
                 className={styles.nextIcon}
               ></img>
             </button>
           </div>
+        }
       </>)}
     </>
   );

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { validation, typeOptions, difficultyOptions, countriesOptions } from './validation';
 import styles from "./Form.module.css";
+import addIcon from "../../assets/icons/add.svg";
+import minusIcon from "../../assets/icons/minus.svg";
 
 const Form = () => {
   const [height, setHeight] = useState("610px");
@@ -12,7 +14,7 @@ const Form = () => {
     name: "",
     type: "",
     difficulty: "",
-    duration: "",
+    duration: "00:00",
     season: "",
   });
   const [errors, setErrors] = useState({
@@ -27,7 +29,6 @@ const Form = () => {
     setCountryList([...countryList, { country: "" }]);
   };
 
-  //TODO input con formato de hora
   const handleCountryRemove = (index) => {
     const list = [...countryList];
     list.splice(index, 1);
@@ -64,7 +65,7 @@ const Form = () => {
         [name]: value,
       })
     );
-    
+  
     if (Object.entries(errors).length < 4) setHeight("700px");
     if (Object.entries(errors).length <= 2) setHeight("650px");
     if (Object.entries(errors).length <= 1) setHeight("610px");
@@ -76,7 +77,7 @@ const Form = () => {
 
     if (Object.entries(errors).length === 0 && finalList.length) {
       activity.country = finalList;
-
+   
       await fetch("http://localhost:3001/activities", {
         method: "POST",
         headers: {
@@ -92,6 +93,7 @@ const Form = () => {
         season: "",
       });
       setCountryList([{ country: "" }]);
+
     } else {
       setErrorButton(true);
     }
@@ -154,8 +156,9 @@ const Form = () => {
           <div className={styles.container_subdivision_s}>
             <label className={styles.label}>Duration</label>
             <input
-              type="number"
+              type="time"
               name="duration"
+              max="12:00"
               value={activity.duration}
               onChange={handleInput}
               className={styles.inputShort}
@@ -238,7 +241,7 @@ const Form = () => {
                         className={styles.countryButton}
                       >
                         <img
-                          src="./icons/add.svg"
+                          src={addIcon}
                           alt="addIcon"
                           className={styles.addIcon}
                         ></img>
@@ -253,7 +256,7 @@ const Form = () => {
                       className={styles.countryButton}
                     >
                       <img
-                        src="./icons/minus.svg"
+                        src={minusIcon}
                         alt="minusIcon"
                         className={styles.minusIcon}
                       ></img>

@@ -5,3 +5,14 @@
     justify-content: flex-end;
     min-height: 100vh;
 }
+
+
+@media (max-width: 375px)  {
+    .container{
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    width: 700px;
+
+    }
+}
