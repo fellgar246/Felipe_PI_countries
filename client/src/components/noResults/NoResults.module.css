@@ -1,0 +1,31 @@
+.container{
+    align-items: center;
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+}
+
+.subcontainer{
+    height: 200px;
+    position: relative;
+    width: 200px;
+}
+
+.title{
+    color: #818181;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.subtitle{
+    color: #818181;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.notFoundIcon{
+    height: 70px;
+    position: relative;
+    top: -35px;
+    width: 70px;
+}

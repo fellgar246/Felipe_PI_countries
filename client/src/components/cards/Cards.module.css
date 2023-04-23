@@ -24,3 +24,14 @@
         width: 800px;
     }
 }
+
+@media (max-width: 375px) {
+    .container{
+        grid-template-columns: 1fr 1fr ; 
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
+        height: 920px;
+        width: 300px;
+        margin-bottom: 30px;
+    }
+
+}

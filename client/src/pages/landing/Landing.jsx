@@ -9,19 +9,22 @@ const Landing = () => {
 
   useEffect(() =>{
     const timer = setTimeout(() => {
-      if(currentState === 2){
+      if(currentState === 5){
         setCurrentState(0)
       }else {
         setCurrentState(currentState+1)
       }
-    }, 5000)
+    }, 4000)
     return () => clearTimeout(timer)
   }, [currentState])
 
   const imageSlide = [
-      {url: './japan.jpg'}, 
-      {url: './mexico.jpg'}, 
-      {url: './mountain.jpg'}, 
+      {url: './images/man-visiting.jpg'}, 
+      {url: './images/mexico.jpg'}, 
+      {url: './images/mountain.jpg'}, 
+      {url: './images/machupicchu.jpg'}, 
+      {url: './images/opera-house.jpg'}, 
+      {url: './images/chinese-lanterns.jpg'}, 
   ];
 
   const bgImageStyle = {
@@ -34,24 +37,21 @@ const Landing = () => {
 
   return (
     <div className={styles.section}>
- 
       <div style={bgImageStyle}>
         <div className={styles.container}>
-        <div className={styles.bannerText}>
+          <div className={styles.bannerText}>
             <h2 className={styles.title}>Henry Countries</h2>
+            <h3 className={styles.subtitle}>
+              Search for a country and create an interesting activity
+            </h3>
             <NavLink to={"/home"}>
               <span className={styles.button}>INGRESA</span>
             </NavLink>
+          </div>
         </div>
       </div>
-      </div>
-
-     
-      <div>
-
-      </div>
     </div>
-  )
+  );
 }
 
 export default Landing;

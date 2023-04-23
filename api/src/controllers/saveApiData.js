@@ -32,7 +32,4 @@ const saveApiData = async() => {
     }
 }
 
-
-
-
 module.exports = saveApiData;

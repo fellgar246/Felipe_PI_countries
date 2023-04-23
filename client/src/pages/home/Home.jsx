@@ -13,7 +13,7 @@ import {
           getBySearch,
           adjustBySearch
         } from '../../redux/actions'; 
-import { Cards, Loading, Nav, typeOptions } from "../../components";
+import { Cards, Loading, Nav, NoResults, typeOptions } from "../../components";
 
 import styles from "./Home.module.css";
 import nextIcon from "../../assets/icons/next.svg";
@@ -31,16 +31,12 @@ const Home = () => {
   const bySearch = state.bySearch;
   const noResults = state.results;
 
-  //DOM states
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
-  //const [noResults, setNoResults] = useState(false)
 
 
-  //TODO cambiar imagenes de fondo
-  //TODO responsive
   //TODO paginado
-  //TODO not found comoponent
+  //TODO setear filtros
 
   useEffect(() => {
     dispatch(getCountries());
@@ -128,6 +124,8 @@ const Home = () => {
     setCurrentPage(currentPage + 10);
   };
 
+  console.log(currentPage)
+
   const prevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 10);
@@ -145,7 +143,7 @@ const Home = () => {
   ];
 
   return (
-    <>
+    <div className={styles.container}>
       <Nav />
       <div className={styles.hero}>
         <h2 className={styles.title}>Search for a country</h2>
@@ -203,7 +201,7 @@ const Home = () => {
             </select>
             <select onChange={onByName} className={styles.selector}>
               <option disabled="" value="">
-                alphabetically
+                name
               </option>
               <option value="ascending">A-Z</option>
               <option value="descending">Z-A</option>
@@ -211,33 +209,33 @@ const Home = () => {
           </div>
         </div>
 
-        {noResults ? <p>No hay sultados</p> : 
+        {noResults ? <NoResults /> : 
           <div className={styles.containerCards}>
-            {currentPage === 0 ? (
-              <span className={styles.span}></span>
-            ) : (
-              <button onClick={prevPage} className={styles.controllerButton}>
+            <div className={styles.containerCardsButtons}>
+              <button 
+                onClick={prevPage} 
+                className={styles.buttonPrevNext}>
                 <img
                   src={prevIcon}
                   alt="prevIcon"
                   className={styles.prevIcon}
                 ></img>
               </button>
-            )}
-              <Cards filteredCountries={filteredCountries} />
-          <button
-              onClick={nextPage}
-              className={styles.controllerButton}>
-              <img
-                src={nextIcon}
-                alt="nextIcon"
-                className={styles.nextIcon}
-              ></img>
-            </button>
+              <button
+                onClick={nextPage}
+                className={styles.buttonPrevNext}>
+                <img
+                  src={nextIcon}
+                  alt="nextIcon"
+                  className={styles.nextIcon}
+                ></img>
+              </button>
+            </div>
+            <Cards filteredCountries={filteredCountries} />
           </div>
         }
       </>)}
-    </>
+    </div>
   );
 };
 

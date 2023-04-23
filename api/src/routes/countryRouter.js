@@ -36,8 +36,6 @@ const countryByNameRouter = async(req, res) => {
 
 }
 
-
-
 module.exports = {
     allCountriesRouter,
     countryByNameRouter,

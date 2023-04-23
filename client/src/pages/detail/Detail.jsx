@@ -11,7 +11,6 @@ const Detail = () => {
 
   const history = useHistory();
 
-  //TODO responsive mobile
   useEffect(() => {
     fetch(`http://localhost:3001/countries/${idPais}`)
     .then((response) => response.json())

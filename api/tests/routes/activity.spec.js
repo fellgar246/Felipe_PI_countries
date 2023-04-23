@@ -9,7 +9,7 @@ const activity = {
     name: "Visit museum", 
     type: "Cultural",
     difficulty: 1, 
-    duration: 4, 
+    duration: "01:10", 
     season: "Summer",
     country: ["FRA", "KEN", "MEX"]
 };
@@ -18,7 +18,7 @@ const activity2 = {
     name: "Visit local places", 
     type: "Cultural",
     difficulty: 1, 
-    duration: 3, 
+    duration: "00:30", 
     season: "Winter",
     country: ["BRA", "MEX"]
 };
