@@ -9,7 +9,7 @@ const Landing = () => {
 
   useEffect(() =>{
     const timer = setTimeout(() => {
-      if(currentState === 5){
+      if(currentState === 3){
         setCurrentState(0)
       }else {
         setCurrentState(currentState+1)
@@ -22,8 +22,6 @@ const Landing = () => {
       {url: './images/man-visiting.jpg'}, 
       {url: './images/mexico.jpg'}, 
       {url: './images/mountain.jpg'}, 
-      {url: './images/machupicchu.jpg'}, 
-      {url: './images/opera-house.jpg'}, 
       {url: './images/chinese-lanterns.jpg'}, 
   ];
 

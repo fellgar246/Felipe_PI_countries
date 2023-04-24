@@ -16,8 +16,7 @@ import {
 import { Cards, Loading, Nav, NoResults, typeOptions } from "../../components";
 
 import styles from "./Home.module.css";
-import nextIcon from "../../assets/icons/next.svg";
-import prevIcon from "../../assets/icons/prev.svg";
+
 import searchIcon from "../../assets/icons/search.svg";
 
 const Home = () => {
@@ -31,12 +30,16 @@ const Home = () => {
   const bySearch = state.bySearch;
   const noResults = state.results;
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageInput, setPageInput] = useState(1);
 
-
-  //TODO paginado
-  //TODO setear filtros
+  const [filterValues, setFilterValues] = useState({
+    search: "",
+    type: "",
+    continent: "",
+    population: "",
+    name: ""
+  })
 
   useEffect(() => {
     dispatch(getCountries());
@@ -44,92 +47,101 @@ const Home = () => {
   }, []);
 
   const filteredCountries = () => {
- 
     //filter by Search
     if (bySearch.length) {
-      return bySearch.slice(currentPage, currentPage + 10);
+      return bySearch
     }
-
     //filter by Type
     if (byType.length) {
-      return byType.slice(currentPage, currentPage + 10);
+      return byType;
     }
     //filter by Continet
     if (byContinent.length) {
-      return byContinent.slice(currentPage, currentPage + 10);
+      return byContinent
     }
     //order by Population
     if (byPopulation.length) {
-      return byPopulation.slice(currentPage, currentPage + 10);
+      return byPopulation;
     }
     //order by Name
     if (byName.length) {
-      return byName.slice(currentPage, currentPage + 10);
+      return byName;
     }
-
-    return countries.slice(currentPage, currentPage + 10);
+    return countries;
   };
 
   const onSearch = ({ target }) => {
-    setSearch(target.value)
-    dispatch(getBySearch(search))
+    setFilterValues({
+      ...filterValues,
+      search: target.value,
+      type: "",
+      continent: "",
+      population: "",
+      name: ""
+    })
+    dispatch(getBySearch(filterValues.search))
     dispatch(adjustBySearch())
-    setCurrentPage(0);
+    setCurrentPage(1);
   };
 
   const onByType = ({ target }) => {
-    dispatch(getByType(target.value))
-    dispatch(adjustByType())
-    setCurrentPage(0);
+    dispatch(getByType(target.value));
+    dispatch(adjustByType());
+    setCurrentPage(1);
+    setPageInput(1);
+    setFilterValues({
+      ...filterValues,
+      search: "",
+      type: target.value,
+      continent: "",
+      population: "",
+      name: ""
+    })
   };
 
   const onByContinent = ({ target }) => {
     dispatch(getByContinent(target.value))
     dispatch(adjustByContinent())
-    setCurrentPage(0);
-  };
-
-  const onByName = ({ target }) => {
-    dispatch(getByName(target.value))
-    dispatch(adjustByName())
-    setCurrentPage(0);
+    setCurrentPage(1);
+    setPageInput(1);
+    setFilterValues({
+      ...filterValues,
+      search: "",
+      type: "",
+      continent: target.value,
+      population: "",
+      name: ""
+    })
   };
 
   const onByPopulation = ({ target }) => {
     dispatch(getByPopulation(target.value));
     dispatch(adjustByPopulation())
-    setCurrentPage(0);
+    setCurrentPage(1);
+    setPageInput(1);
+    setFilterValues({
+      ...filterValues,
+      search: "",
+      type: "",
+      continent: "",
+      population: target.value,
+      name: ""
+    })
   };
 
-  //controllers of buttons next and prev page
-  const nextPage = () => {
-    if (bySearch.length) {
-      if (bySearch.length < currentPage + 20) return;
-    }
-    if (byType.length) {
-      if (byType.length < currentPage + 10) return;
-    }
-    if (byContinent.length) {
-      if (byContinent.length < currentPage + 10) return;
-    }
-    if (byPopulation.length) {
-      if (byPopulation.length < currentPage + 20) return;
-    }
-    if (byName.length) {
-      if (byName.length < currentPage + 20) return;
-    }
-    if (countries.length) {
-      if (countries.length < currentPage + 20) return;
-    }
-    setCurrentPage(currentPage + 10);
-  };
-
-  console.log(currentPage)
-
-  const prevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 10);
-    }
+  const onByName = ({ target }) => {
+    dispatch(getByName(target.value))
+    dispatch(adjustByName())
+    setCurrentPage(1);
+    setPageInput(1);
+    setFilterValues({
+      ...filterValues,
+      search: "",
+      type: "",
+      continent: "",
+      population: "",
+      name: target.value,
+    })
   };
 
   const continents = [
@@ -151,7 +163,7 @@ const Home = () => {
           <input
             type="text"
             placeholder="Search . . ."
-            value={search}
+            value={filterValues.search}
             onChange={onSearch}
             className={styles.searchBar}
           />
@@ -168,7 +180,10 @@ const Home = () => {
         <div className={styles.containerFilters}>
           <div className={styles.subcontainerFilters}>
             <h3 className={styles.subtitle}>filter by</h3>
-            <select onChange={onByType} className={styles.selector}>
+            <select
+              onChange={onByType}
+              className={styles.selector}
+              value={filterValues.type}>
               <option disabled="" value="">
                 activity
               </option>
@@ -178,7 +193,10 @@ const Home = () => {
                 </option>
               ))}
             </select>
-            <select onChange={onByContinent} className={styles.selector}>
+            <select
+                  onChange={onByContinent}
+                  className={styles.selector}
+                  value={filterValues.continent}>
               <option disabled="" value="">
                 continent
               </option>
@@ -192,14 +210,20 @@ const Home = () => {
 
           <div className={styles.subcontainerFilters}>
             <h3 className={styles.subtitle}>order by</h3>
-            <select onChange={onByPopulation} className={styles.selector}>
+            <select
+                onChange={onByPopulation}
+                className={styles.selector}
+                value={filterValues.population}>
               <option disabled="" value="">
                 population
               </option>
               <option value="ascending">Ascending</option>
               <option value="descending">Descending</option>
             </select>
-            <select onChange={onByName} className={styles.selector}>
+            <select
+              onChange={onByName}
+              className={styles.selector}
+              value={filterValues.name}>
               <option disabled="" value="">
                 name
               </option>
@@ -211,27 +235,13 @@ const Home = () => {
 
         {noResults ? <NoResults /> : 
           <div className={styles.containerCards}>
-            <div className={styles.containerCardsButtons}>
-              <button 
-                onClick={prevPage} 
-                className={styles.buttonPrevNext}>
-                <img
-                  src={prevIcon}
-                  alt="prevIcon"
-                  className={styles.prevIcon}
-                ></img>
-              </button>
-              <button
-                onClick={nextPage}
-                className={styles.buttonPrevNext}>
-                <img
-                  src={nextIcon}
-                  alt="nextIcon"
-                  className={styles.nextIcon}
-                ></img>
-              </button>
-            </div>
-            <Cards filteredCountries={filteredCountries} />
+            <Cards
+                filteredCountries={filteredCountries}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage} 
+                pageInput={pageInput}
+                setPageInput={setPageInput}  
+                />
           </div>
         }
       </>)}
