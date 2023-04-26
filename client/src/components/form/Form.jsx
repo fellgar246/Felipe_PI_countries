@@ -43,11 +43,12 @@ const Form = () => {
 
     const result = list.map((e) => Object.values(e)).flat();
 
-    if (result.length !== new Set(result).size)
-      errors.country = "No countries duplicated allowed";
-    if (result.filter((e) => e === "").length === 1)
-      errors.country = "A country is required";
-    else delete errors.country;
+    if (result.filter((e) => e === "").length === 1) {
+      errors.country = "A country is required"
+    } else if (result.length !== new Set(result).size) { 
+      errors.country = "No countries duplicated allowed"
+    } else {
+      delete errors.country}
 
     setFinalList(result.filter((e) => e !== ""));
   };
@@ -95,6 +96,7 @@ const Form = () => {
         season: "",
       });
       setCountryList([{ country: "" }]);
+      setErrorMessage(false);
       setOkMessage(true)
       setTimeout(() => {
           setOkMessage(false)
