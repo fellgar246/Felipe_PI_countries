@@ -78,7 +78,7 @@ const Form = () => {
     if (Object.entries(errors).length === 0 && finalList.length) {
       activity.country = finalList;
    
-      await fetch("http://felipepicountries-production.up.railway.app/activities", {
+      await fetch("https://felipepicountries-production.up.railway.app/activities", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
