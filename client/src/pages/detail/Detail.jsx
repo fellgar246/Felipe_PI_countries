@@ -5,12 +5,14 @@ import styles from './Detail.module.css';
 import returnIcon from '../../assets/icons/returnv2.svg'
 
 const Detail = () => {
-
+  
   const { idPais } = useParams();
   const [country, setCountry] = useState('');
 
   const history = useHistory();
-
+  
+  //http://localhost:3001
+  //https://felipepicountries-production.up.railway.app 
   useEffect(() => {
     fetch(`https://felipepicountries-production.up.railway.app/countries/${idPais}`)
     .then((response) => response.json())

@@ -6,7 +6,8 @@ import minusIcon from "../../assets/icons/minus.svg";
 
 const Form = () => {
   const [height, setHeight] = useState("610px");
-  const [errorButton, setErrorButton] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [okMessage, setOkMessage] = useState(false);
   const [countryList, setCountryList] = useState([{ country: "" }]);
   const [finalList, setFinalList] = useState([]);
 
@@ -69,7 +70,7 @@ const Form = () => {
     if (Object.entries(errors).length < 4) setHeight("700px");
     if (Object.entries(errors).length <= 2) setHeight("650px");
     if (Object.entries(errors).length <= 1) setHeight("610px");
-    setErrorButton(false);
+    setErrorMessage(false);
   };
 
   const handleSubmit = async (event) => {
@@ -77,7 +78,8 @@ const Form = () => {
 
     if (Object.entries(errors).length === 0 && finalList.length) {
       activity.country = finalList;
-   
+      //http://localhost:3001
+      //https://felipepicountries-production.up.railway.app
       await fetch("https://felipepicountries-production.up.railway.app/activities", {
         method: "POST",
         headers: {
@@ -93,9 +95,13 @@ const Form = () => {
         season: "",
       });
       setCountryList([{ country: "" }]);
+      setOkMessage(true)
+      setTimeout(() => {
+          setOkMessage(false)
+      }, 2000)
 
     } else {
-      setErrorButton(true);
+      setErrorMessage(true);
     }
   };
 
@@ -117,8 +123,11 @@ const Form = () => {
     <div style={container}>
       <h2 className={styles.title}>Create a new activity</h2>
       <h3 className={styles.subtitle}>on your favorite country</h3>
-      {errorButton && (
-        <p className={styles.errorButton}>All fields must be filled out</p>
+      {errorMessage && (
+        <p className={styles.errorMessage}>All fields must be filled out</p>
+      )}
+      {okMessage && (
+        <p className={styles.okMessage}>Successfully Sent!</p>
       )}
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.container_division}>

@@ -12,8 +12,10 @@ export const BY_SEARCH = "BY_SEARCH";
 export const ADJUST_BY_SEARCH = "ADJUST_BY_SEARCH"
 
 
+//http://localhost:3001
+//https://felipepicountries-production.up.railway.app       
 export const getCountries = () => {
-    return async function(dispatch) {          
+    return async function(dispatch) {   
             fetch(`https://felipepicountries-production.up.railway.app/countries/`)
             .then((response) => response.json())
             .then((data) => {
