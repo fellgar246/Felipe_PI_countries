@@ -12,7 +12,7 @@ const Detail = () => {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`http://felipepicountries-production.up.railway.app/countries/${idPais}`)
+    fetch(`https://felipepicountries-production.up.railway.app/countries/${idPais}`)
     .then((response) => response.json())
     .then((data) => {
       setCountry(data)

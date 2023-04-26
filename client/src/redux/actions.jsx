@@ -14,7 +14,7 @@ export const ADJUST_BY_SEARCH = "ADJUST_BY_SEARCH"
 
 export const getCountries = () => {
     return async function(dispatch) {          
-            fetch(`http://felipepicountries-production.up.railway.app/countries/`)
+            fetch(`https://felipepicountries-production.up.railway.app/countries/`)
             .then((response) => response.json())
             .then((data) => {
                 return dispatch({
